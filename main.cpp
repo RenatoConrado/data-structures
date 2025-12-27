@@ -5,36 +5,38 @@ using namespace std;
 
 /**
   {} = Node;
-  [] = referência de memoria;
-  head = primeiro endereço, ele nos dá acesso a lista toda;
+  [] = referência de memória;
+  head = primeiro endereço, ele nos dá acesso à lista toda;
   [204, 217, 232, 252];
-  { 6, 217 } -> { 5, 232 } -> { 2, 252 } -> { 3, nullptr };
+  {6, 217} -> {5, 232} -> {2, 252} -> {3, nullptr};
+
+  time complexity: O(n); space: 0(1);
+  Insertion: ;
 */
 struct Node {
   int data;
   Node *next;
 };
 
-int main(int argc, const char **argv) {
-  Node primeiro{6};
-  Node segundo{5};
-  Node terceiro{2};
-  Node quarto{3, nullptr};
+int main() {
+  Node first{6};
+  Node second{5};
+  Node third{2};
+  Node forth{3, nullptr};
 
-  primeiro.next = &segundo;
-  segundo.next = &terceiro;
-  terceiro.next = &quarto;
+  first.next = &second;
+  second.next = &third;
+  third.next = &forth;
 
-  const int LENGTH = 4;
-  Node linkedList[LENGTH]{primeiro, segundo, terceiro, quarto};
-  for (short i = 0; i < LENGTH; i++) {
-    cout << "Node[" << i << "] = { data: " << linkedList[i].data << ", "
-         << linkedList[i].next << " }" << endl;
+  Node *head = &first;
+
+  std::cout << "Iteration over Linked List" << endl;
+  for (Node *node = head; node != nullptr; node = node->next) {
+    cout << "Node[" << node << "] = { data: " << node->data
+         << ", next: " << node->next << " }" << endl;
   }
-
   return 0;
 }
-
 #endif // LINKED_LIST
 
 // #define TEMPLATE

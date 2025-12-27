@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.10.0)
 project(class-tutorial VERSION 0.1.0 LANGUAGES C CXX)
-
+set(CXX_STANDARD 23)
+set(CXX_STANDARD_REQUIRED TRUE)
 add_executable(class-tutorial main.cpp)
