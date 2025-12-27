@@ -4,19 +4,35 @@
 using namespace std;
 
 /**
-  {} = Node;
-  [] = referência de memória;
-  head = primeiro endereço, ele nos dá acesso à lista toda;
-  [204, 217, 232, 252];
-  {6, 217} -> {5, 232} -> {2, 252} -> {3, nullptr};
-
-  time complexity: O(n); space: 0(1);
-  Insertion: ;
-*/
+ * {} = Node;
+ * [] = referência de memória;
+ * [204, 217, 232, 252];
+ * {6, 217} -> {5, 232} -> {2, 252} -> {3, nullptr};
+ */
 struct Node {
   int data;
   Node *next;
 };
+
+/**
+ * Iteration: time complexity: O(n), space: O(1);
+ * @param head Primeiro elemento, ele nos dá acesso à lista toda
+ */
+void iterate(Node *head) {
+  for (Node *node = head; node != nullptr; node = node->next)
+    cout << "Node[" << node << "] = { data: " << node->data
+         << ", next: " << node->next << " }" << endl;
+}
+
+/**
+ * Insertion: time complexity: O(1) por que temos a referencia do elemento;
+ * [1: 204, 2: 217, 3: 232, 4: 252, 5: **264**];
+ * {6, 217} -> {5, 264} -> **{8, 232}** -> {2, 252} -> {3, nullptr};
+ */
+void insertAfter(Node *afterNode, Node *newNode) {
+  newNode->next = afterNode->next;
+  afterNode->next = newNode;
+}
 
 int main() {
   Node first{6};
@@ -29,12 +45,14 @@ int main() {
   third.next = &forth;
 
   Node *head = &first;
+  cout << "Iteration over Linked List" << endl;
+  iterate(head);
 
-  std::cout << "Iteration over Linked List" << endl;
-  for (Node *node = head; node != nullptr; node = node->next) {
-    cout << "Node[" << node << "] = { data: " << node->data
-         << ", next: " << node->next << " }" << endl;
-  }
+  cout << endl << "Inserting a new node" << endl;
+  Node newThird{8};
+  insertAfter(&second, &newThird);
+  iterate(head);
+
   return 0;
 }
 #endif // LINKED_LIST
