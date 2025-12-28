@@ -1,6 +1,7 @@
 #define LINKED_LIST
 #ifdef LINKED_LIST
 #include <iostream>
+#include <string>
 using namespace std;
 
 /*
@@ -13,10 +14,11 @@ template <typename T> struct Node {
   Node *next = nullptr;
 };
 
-/**
-Iteration: time complexity: O(n), space: O(1);
-@param head Primeiro elemento, ele nos dá acesso à lista toda */
-template <typename T> void iterate(Node<T> *head) {
+/* Primeiro elemento, ele nos dá acesso à lista toda */
+Node<int> *head = nullptr;
+
+/* Iteration: time complexity: O(n), space: O(1) */
+template <typename T> void iterate() {
   for (Node<T> *node = head; node != nullptr; node = node->next)
     cout << "Node[" << node << "] = {data: " << node->data
          << ", next: " << node->next << "}" << endl;
@@ -34,27 +36,40 @@ template <typename T> void insertAfter(Node<T> *afterNode, Node<T> *newNode) {
 /*
 [1: **278**, 2: 204, 3: 217, 4: 264, 5: 232, 6: 252];
 **{10, 204}** -> {6, 217} -> {5, 264} -> {8, 232} -> {2, 252} -> {3, nullptr};*/
-template <typename T> void insertFirst(Node<T> *&head, Node<T> *newNode) {
+template <typename T> void insertFirst(Node<T> *newNode) {
   newNode->next = head;
   head = newNode;
 }
 
 /*
 exclusion: time complexity: entre O(1) primeiro node, até O(n) ultimo node;
-por que temos que atravessar a estrutura até achar o elemento;
-[1: 204, 2: 217, 3: 264, --2-3-2--, 4: 252];
-{6, 217} -> {5, 264} -> {8, 232} --{-2-,-2-5-2-}--> {3, nullptr}; */
-template <typename T> void removeAt(Node<T> *&head, Node<T> *at) {
-  if (head == at) {
-    head = at->next;
-    return delete at;
+por que temos que atravessar a estrutura até achar o elemento; */
+template <typename T> void remove(Node<T> *node) {
+  if (head == node) {
+    head = node->next;
+    return delete node;
   }
 
-  for (Node<T> *node = head; node != nullptr; node = node->next)
-    if (node->next == at) {
-      node->next = node->next->next;
-      return delete at;
+  for (Node<T> *index = head; index != nullptr; index = index->next)
+    if (index->next == node) {
+      index->next = node->next;
+      return delete node;
     }
+}
+
+template <typename T> Node<T> *findByIndex(int index) {
+  short i = 0;
+  for (Node<T> *node = head; node != nullptr; node = node->next, i++)
+    if (i == index)
+      return node;
+  return nullptr;
+}
+
+template <typename T> Node<T> *findByValue(T value) {
+  for (Node<T> *node = head; node != nullptr; node = node->next)
+    if (node->data == value)
+      return node;
+  return nullptr;
 }
 
 int main() {
@@ -67,10 +82,10 @@ int main() {
   second->next = third;
   third->next = forth;
 
-  Node<int> *head = first;
+  head = first;
 
   cout << "Iteration over Linked List" << endl;
-  iterate(head);
+  iterate<int>();
 
   Node<int> *toInsert1 = new Node{8};
   Node<int> *toInsert2 = new Node{10};
@@ -78,18 +93,33 @@ int main() {
        << "Inserting a new node: [" << toInsert1 << "]" << endl
        << "Inserting a new node: [" << toInsert2 << "]" << endl;
   insertAfter(second, toInsert1);
-  insertFirst(head, toInsert2);
-  iterate(head);
+  insertFirst(toInsert2);
+  iterate<int>();
 
-  Node<int> *toRemove = toInsert2;
-  cout << endl << "Removing a node: [" << toRemove << "]" << endl;
-  removeAt(head, toRemove);
-  iterate(head);
+  Node<int> *toRemove1 = head;
+  Node<int> *toRemove2 = forth;
+  cout << endl
+       << "Removing a node: [" << toRemove1 << "]" << endl
+       << "Removing a node: [" << toRemove2 << "]" << endl;
+  remove(toRemove1);
+  remove(toRemove2);
+  iterate<int>();
 
   cout << endl
        << "Head mudou e node foi deletado da memoria" << endl
-       << "Head   {" << head->data << ", " << head->next << "}" << endl
-       << "deleted{" << toRemove->data << ", " << toRemove->next << "}" << endl;
+       << "Head {" << head->data << ", " << head->next << "}" << endl
+       << "Del1 {" << toRemove1->data << ", " << toRemove1->next << "}" << endl
+       << "Del2 {" << toRemove2->data << ", " << toRemove2->next << "}" << endl;
+
+  constexpr int index = 2;
+  constexpr int value = 2;
+  const Node<int> *found1 = findByIndex<int>(index);
+  const Node<int> *found2 = findByValue(value);
+
+  cout << endl
+       << "Acesando os elementos i: " << index << ", value: " << value << endl
+       << found1 << " {" << found1->data << ", " << found1->next << "}" << endl
+       << found2 << " {" << found2->data << ", " << found2->next << "}" << endl;
 
   return 0;
 }
