@@ -1,7 +1,4 @@
-#define LINKED_LIST
-#ifdef LINKED_LIST
 #include <iostream>
-#include <string>
 using namespace std;
 
 /*
@@ -18,7 +15,7 @@ template <typename T> struct Node {
 Node<int> *head = nullptr;
 
 /* Iteration: time complexity: O(n), space: O(1) */
-template <typename T> void iterate() {
+template <typename T> void coutAll() {
   for (Node<T> *node = head; node != nullptr; node = node->next)
     cout << "Node[" << node << "] = {data: " << node->data
          << ", next: " << node->next << "}" << endl;
@@ -57,6 +54,7 @@ template <typename T> void remove(Node<T> *node) {
     }
 }
 
+/* searching: O(n) */
 template <typename T> Node<T> *findByIndex(int index) {
   short i = 0;
   for (Node<T> *node = head; node != nullptr; node = node->next, i++)
@@ -85,7 +83,7 @@ int main() {
   head = first;
 
   cout << "Iteration over Linked List" << endl;
-  iterate<int>();
+  coutAll<int>();
 
   Node<int> *toInsert1 = new Node{8};
   Node<int> *toInsert2 = new Node{10};
@@ -94,7 +92,7 @@ int main() {
        << "Inserting a new node: [" << toInsert2 << "]" << endl;
   insertAfter(second, toInsert1);
   insertFirst(toInsert2);
-  iterate<int>();
+  coutAll<int>();
 
   Node<int> *toRemove1 = head;
   Node<int> *toRemove2 = forth;
@@ -103,7 +101,7 @@ int main() {
        << "Removing a node: [" << toRemove2 << "]" << endl;
   remove(toRemove1);
   remove(toRemove2);
-  iterate<int>();
+  coutAll<int>();
 
   cout << endl
        << "Head mudou e node foi deletado da memoria" << endl
@@ -115,12 +113,10 @@ int main() {
   constexpr int value = 2;
   const Node<int> *found1 = findByIndex<int>(index);
   const Node<int> *found2 = findByValue(value);
-
   cout << endl
-       << "Acesando os elementos i: " << index << ", value: " << value << endl
+       << "Acessando os elementos i: " << index << ", value: " << value << endl
        << found1 << " {" << found1->data << ", " << found1->next << "}" << endl
        << found2 << " {" << found2->data << ", " << found2->next << "}" << endl;
 
   return 0;
 }
-#endif // LINKED_LIST
