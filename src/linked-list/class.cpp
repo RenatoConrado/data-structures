@@ -125,6 +125,22 @@ public:
     length--;
   }
 
+  void clearPrevious() {
+    for (Node *node = head; node; node = node->next) {
+      node->prev = nullptr;
+    }
+  }
+
+  void reverse() {
+    Node *prev = nullptr;
+    for (Node *next, *node = head; node; node = next) {
+      next = node->next;
+      node->next = prev;
+      prev = node;
+    }
+    head = prev;
+  }
+
   ~DoubleLinkedList() {
     while (head) {
       const Node *tmp = head;
@@ -134,6 +150,28 @@ public:
   }
 };
 
+#define REVERSE_LINKED_LIST
+#ifdef REVERSE_LINKED_LIST
+int main() {
+  DoubleLinkedList<int> list;
+  list.insertLast(2);
+  list.insertLast(4);
+  list.insertLast(6);
+  list.insertLast(5);
+  list.clearPrevious();
+  cout << "Initial Values: " << endl;
+  list.coutAll();
+
+  cout << endl << "Reversed List: " << endl;
+  list.reverse();
+  list.coutAll();
+
+  return EXIT_SUCCESS;
+}
+#endif // REVERSE_LINKED_LIST
+
+// #define USUAL_TEST
+#ifdef USUAL_TEST
 int main() {
   DoubleLinkedList<int> list;
 
@@ -175,3 +213,4 @@ int main() {
 
   return EXIT_SUCCESS;
 }
+#endif // USUAL_TEST
