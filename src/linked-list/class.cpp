@@ -137,7 +137,7 @@ public:
   }
 
   /** Using recursion to print elements in reverse order */
-  void printReverse(Node *node) const {
+  static void printReverse(Node *node) {
     if (node->next)
       printReverse(node->next);
     coutNode(node);
@@ -151,6 +151,14 @@ public:
       prev = node;
     }
     head = prev;
+  }
+
+  void reverseUsingRecursion(Node *node, Node *prev = nullptr) {
+    head = node;
+    if (node->next) {
+      reverseUsingRecursion(node->next, node);
+    }
+    node->next = prev;
   }
 
   ~DoubleLinkedList() {
@@ -175,10 +183,14 @@ int main() {
   list.coutAll();
 
   cout << "They should look like this in reverse: " << endl;
-  list.printReverse(list.getHead());
+  DoubleLinkedList<int>::printReverse(list.getHead());
 
   cout << endl << "Reversed List: " << endl;
   list.reverse();
+  list.coutAll();
+
+  cout << "Reversed List using recursion: " << endl;
+  list.reverseUsingRecursion(list.getHead());
   list.coutAll();
 
   return EXIT_SUCCESS;
