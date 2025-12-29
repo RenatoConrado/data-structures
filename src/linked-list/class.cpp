@@ -36,12 +36,17 @@ public:
     return nullptr;
   }
 
+  static void coutNode(Node *node) {
+    cout << "[" << node << "] {data: " << node->data << ", "
+         << "next: " << node->next << ", "
+         << "prev: " << node->prev << "}" << endl;
+  }
+
   /** O(n) */
   void coutAll() const {
     for (Node *node = head; node; node = node->next)
-      cout << "[" << node << "] {data: " << node->data << ", "
-           << "next: " << node->next << ", "
-           << "prev: " << node->prev << "}" << endl;
+      coutNode(node);
+    cout << endl;
   }
 
   /** O(1) */
@@ -131,6 +136,13 @@ public:
     }
   }
 
+  /** Using recursion to print elements in reverse order */
+  void printReverse(Node *node) const {
+    if (node->next)
+      printReverse(node->next);
+    coutNode(node);
+  }
+
   void reverse() {
     Node *prev = nullptr;
     for (Node *next, *node = head; node; node = next) {
@@ -162,6 +174,9 @@ int main() {
   cout << "Initial Values: " << endl;
   list.coutAll();
 
+  cout << "They should look like this in reverse: " << endl;
+  list.printReverse(list.getHead());
+
   cout << endl << "Reversed List: " << endl;
   list.reverse();
   list.coutAll();
@@ -185,8 +200,7 @@ int main() {
 
   constexpr short beforeSecond = 8;
   const auto second = list.getHead()->next;
-  cout << endl
-       << "Inserting a new node: " << beforeSecond << endl
+  cout << "Inserting a new node: " << beforeSecond << endl
        << "before node[" << second << "]" << endl;
   list.insertBefore(second, beforeSecond);
   list.coutAll();
@@ -195,8 +209,7 @@ int main() {
   const auto toRemove2 = list.GetTail();
   if (toRemove1 == toRemove2)
     return EXIT_FAILURE;
-  cout << endl
-       << "Removing a node: [" << toRemove1 << "]" << endl
+  cout << "Removing a node: [" << toRemove1 << "]" << endl
        << "Removing a node: [" << toRemove2 << "]" << endl;
   list.remove(toRemove1);
   list.remove(toRemove2);
@@ -206,10 +219,10 @@ int main() {
   constexpr int value = 5;
   const auto found1 = list.findByIndex(index);
   const auto found2 = list.findByValue(value);
-  cout << endl
-       << "Acessando os elementos i: " << index << ", value: " << value << endl
-       << found1 << " {" << found1->data << ", " << found1->next << "}" << endl
-       << found2 << " {" << found2->data << ", " << found2->next << "}" << endl;
+  cout << "Acessando os elementos por: index: " << index << ", value: " << value
+       << endl;
+  DoubleLinkedList<int>::coutNode(found1);
+  DoubleLinkedList<int>::coutNode(found2);
 
   return EXIT_SUCCESS;
 }
