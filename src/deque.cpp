@@ -24,11 +24,14 @@ int main() {
   list.deleteFront();
   cout << endl << list.toString() << endl;
 
-  cout << "Acessando os elementos" << endl
-       << "Frente: " << list.getFrontString()
-       << "Atras : " << list.getRearString();
-
-  return EXIT_SUCCESS;
+  list.clear();
+  try {
+    cout << "Acessando os elementos" << endl
+         << "Frente: " << list.getFrontString()
+         << "Atras : " << list.getRearString();
+  } catch (runtime_error &error) {
+    cerr << error.what() << endl;
+  }
 
   return EXIT_SUCCESS;
 }

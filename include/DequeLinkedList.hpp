@@ -42,12 +42,12 @@ template <typename T> class DequeLinkedList final : public DoubleEndedQueue<T> {
 public:
   [[nodiscard]] T getFront() const override {
     if (!head)
-      throw std::runtime_error("Deque vazio");
+      throw std::invalid_argument("Deque vazio");
     return head->data;
   }
   [[nodiscard]] std::string getFrontString() const {
     if (!head)
-      throw std::runtime_error("Deque vazio");
+      throw std::invalid_argument("Deque vazio");
     return toString(head);
   }
   void insertFront(T item) override {
@@ -74,12 +74,12 @@ public:
 
   [[nodiscard]] T getRear() const override {
     if (!tail)
-      throw std::runtime_error("Deque vazio");
+      throw std::invalid_argument("Deque vazio");
     return tail->data;
   }
   [[nodiscard]] std::string getRearString() const {
     if (!tail)
-      throw std::runtime_error("Deque vazio");
+      throw std::invalid_argument("Deque vazio");
     return toString(tail);
   }
   void insertRear(T item) override {
@@ -108,7 +108,7 @@ public:
   [[nodiscard]] int size() const override { return length; }
   void clear() override {
     while (head) {
-      const Node *node = head;
+      Node *node = head;
       head = head->next;
       delete node;
     }
@@ -118,9 +118,11 @@ public:
 
   [[nodiscard]] std::string toString() const override {
     std::ostringstream buffer;
-    for (Node *node = head; node; node = node->next) {
-      buffer << toString(node);
-    }
+    const char *endlNotIfEmpty = head ? "\n" : "";
+    buffer << "[" << this << "]" << "[" << length << "] {" << endlNotIfEmpty;
+    for (Node *node = head; node; node = node->next)
+      buffer << "    " << toString(node);
+    buffer << "}" << std::endl;
     return buffer.str();
   }
 
