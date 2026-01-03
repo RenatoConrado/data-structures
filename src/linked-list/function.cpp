@@ -6,17 +6,19 @@ using namespace std;
 [] = referência de memória;
 [204, 217, 232, 252];
 {6, 217} -> {5, 232} -> {2, 252} -> {3, nullptr}; */
-template <typename T> struct Node {
+template <typename T>
+struct BynaryNode {
   T data;
-  Node *next = nullptr;
+  BynaryNode *next = nullptr;
 };
 
 /* Primeiro elemento, ele nos dá acesso à lista toda */
-Node<int> *head = nullptr;
+BynaryNode<int> *head = nullptr;
 
 /* Iteration: time complexity: O(n), space: O(1) */
-template <typename T> void coutAll() {
-  for (Node<T> *node = head; node != nullptr; node = node->next)
+template <typename T>
+void coutAll() {
+  for (BynaryNode<T> *node = head; node != nullptr; node = node->next)
     cout << "Node[" << node << "] = {data: " << node->data
          << ", next: " << node->next << "}" << endl;
 }
@@ -25,7 +27,8 @@ template <typename T> void coutAll() {
 Insertion: time complexity: O(1) por que temos a referencia do elemento;
 [1: 204, 2: 217, 3: **264**, 4: 232, 5: 252];
 {6, 217} -> {5, 264} -> **{8, 232}** -> {2, 252} -> {3, nullptr}; */
-template <typename T> void insertAfter(Node<T> *afterNode, Node<T> *newNode) {
+template <typename T>
+void insertAfter(BynaryNode<T> *afterNode, BynaryNode<T> *newNode) {
   newNode->next = afterNode->next;
   afterNode->next = newNode;
 }
@@ -33,7 +36,8 @@ template <typename T> void insertAfter(Node<T> *afterNode, Node<T> *newNode) {
 /*
 [1: **278**, 2: 204, 3: 217, 4: 264, 5: 232, 6: 252];
 **{10, 204}** -> {6, 217} -> {5, 264} -> {8, 232} -> {2, 252} -> {3, nullptr};*/
-template <typename T> void insertFirst(Node<T> *newNode) {
+template <typename T>
+void insertFirst(BynaryNode<T> *newNode) {
   newNode->next = head;
   head = newNode;
 }
@@ -41,13 +45,14 @@ template <typename T> void insertFirst(Node<T> *newNode) {
 /*
 exclusion: time complexity: entre O(1) primeiro node, até O(n) ultimo node;
 por que temos que atravessar a estrutura até achar o elemento; */
-template <typename T> void remove(Node<T> *node) {
+template <typename T>
+void remove(BynaryNode<T> *node) {
   if (head == node) {
     head = node->next;
     return delete node;
   }
 
-  for (Node<T> *index = head; index != nullptr; index = index->next)
+  for (BynaryNode<T> *index = head; index != nullptr; index = index->next)
     if (index->next == node) {
       index->next = node->next;
       return delete node;
@@ -55,28 +60,28 @@ template <typename T> void remove(Node<T> *node) {
 }
 
 /* searching: O(n) */
-template <typename T> Node<T> *findByIndex(int index) {
+template <typename T>
+BynaryNode<T> *findByIndex(int index) {
   short i = 0;
-  for (Node<T> *node = head; node != nullptr; node = node->next, i++)
-    if (i == index)
-      return node;
+  for (BynaryNode<T> *node = head; node != nullptr; node = node->next, i++)
+    if (i == index) return node;
   return nullptr;
 }
 
-template <typename T> Node<T> *findByValue(T value) {
-  for (Node<T> *node = head; node != nullptr; node = node->next)
-    if (node->data == value)
-      return node;
+template <typename T>
+BynaryNode<T> *findByValue(T value) {
+  for (BynaryNode<T> *node = head; node != nullptr; node = node->next)
+    if (node->data == value) return node;
   return nullptr;
 }
 
 int main() {
-  Node<int> *first = new Node{6};
-  Node<int> *second = new Node{5};
-  Node<int> *third = new Node{2};
-  Node<int> *forth = new Node<int>{3, nullptr};
+  BynaryNode<int> *first = new BynaryNode{6};
+  BynaryNode<int> *second = new BynaryNode{5};
+  BynaryNode<int> *third = new BynaryNode{2};
+  BynaryNode<int> *forth = new BynaryNode<int>{3, nullptr};
 
-  first->next = second; // first->next é um atalho para (*first).next
+  first->next = second;  // first->next é um atalho para (*first).next
   second->next = third;
   third->next = forth;
 
@@ -85,8 +90,8 @@ int main() {
   cout << "Iteration over Linked List" << endl;
   coutAll<int>();
 
-  Node<int> *toInsert1 = new Node{8};
-  Node<int> *toInsert2 = new Node{10};
+  BynaryNode<int> *toInsert1 = new BynaryNode{8};
+  BynaryNode<int> *toInsert2 = new BynaryNode{10};
   cout << endl
        << "Inserting a new node: [" << toInsert1 << "]" << endl
        << "Inserting a new node: [" << toInsert2 << "]" << endl;
@@ -94,8 +99,8 @@ int main() {
   insertFirst(toInsert2);
   coutAll<int>();
 
-  Node<int> *toRemove1 = head;
-  Node<int> *toRemove2 = forth;
+  BynaryNode<int> *toRemove1 = head;
+  BynaryNode<int> *toRemove2 = forth;
   cout << endl
        << "Removing a node: [" << toRemove1 << "]" << endl
        << "Removing a node: [" << toRemove2 << "]" << endl;
@@ -111,8 +116,8 @@ int main() {
 
   constexpr int index = 2;
   constexpr int value = 2;
-  const Node<int> *found1 = findByIndex<int>(index);
-  const Node<int> *found2 = findByValue(value);
+  const BynaryNode<int> *found1 = findByIndex<int>(index);
+  const BynaryNode<int> *found2 = findByValue(value);
   cout << endl
        << "Acessando os elementos i: " << index << ", value: " << value << endl
        << found1 << " {" << found1->data << ", " << found1->next << "}" << endl

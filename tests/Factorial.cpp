@@ -1,5 +1,6 @@
-#include <Factorial.hpp>
 #include <gtest/gtest.h>
+
+#include <Factorial.hpp>
 
 // Tests factorial of 0.
 TEST(factorial, HandlesZeroInput) { EXPECT_EQ(Factorial(0), 1); }

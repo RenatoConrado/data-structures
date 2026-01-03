@@ -3,7 +3,8 @@
 #include <iostream>
 #include <sstream>
 
-template <typename T> struct DoubleEndedQueue {
+template <typename T>
+struct DoubleEndedQueue {
   virtual ~DoubleEndedQueue() = default;
 
   [[nodiscard]] virtual T getFront() const = 0;
@@ -21,17 +22,18 @@ template <typename T> struct DoubleEndedQueue {
   [[nodiscard]] virtual std::string toString() const = 0;
 };
 
-template <typename T> class DequeLinkedList final : public DoubleEndedQueue<T> {
+template <typename T>
+class DequeLinkedList final : public DoubleEndedQueue<T> {
   struct Node {
     T data;
-    Node *next = nullptr;
-    Node *prev = nullptr;
+    Node* next = nullptr;
+    Node* prev = nullptr;
   };
-  Node *head = nullptr;
-  Node *tail = nullptr;
+  Node* head = nullptr;
+  Node* tail = nullptr;
   int length = 0;
 
-  [[nodiscard]] static std::string toString(Node *node) {
+  [[nodiscard]] static std::string toString(Node* node) {
     std::ostringstream buffer;
     buffer << "[" << node << "]" << " {data: " << node->data
            << ", next: " << node->next << ", prev: " << node->prev << "}"
@@ -39,19 +41,17 @@ template <typename T> class DequeLinkedList final : public DoubleEndedQueue<T> {
     return buffer.str();
   }
 
-public:
+ public:
   [[nodiscard]] T getFront() const override {
-    if (!head)
-      throw std::invalid_argument("Deque vazio");
+    if (!head) throw std::invalid_argument("Deque vazio");
     return head->data;
   }
   [[nodiscard]] std::string getFrontString() const {
-    if (!head)
-      throw std::invalid_argument("Deque vazio");
+    if (!head) throw std::invalid_argument("Deque vazio");
     return toString(head);
   }
   void insertFront(T item) override {
-    Node *node = new Node{item, head, nullptr};
+    Node* node = new Node{item, head, nullptr};
     if (head)
       head->prev = node;
     else
@@ -60,9 +60,9 @@ public:
     length++;
   }
   void deleteFront() override {
-    if (!head)
-      return;
-    Node *node = head;
+    if (!head) return;
+
+    Node* node = head;
     head = head->next;
     if (head)
       head->prev = nullptr;
@@ -73,17 +73,15 @@ public:
   }
 
   [[nodiscard]] T getRear() const override {
-    if (!tail)
-      throw std::invalid_argument("Deque vazio");
+    if (!tail) throw std::invalid_argument("Deque vazio");
     return tail->data;
   }
   [[nodiscard]] std::string getRearString() const {
-    if (!tail)
-      throw std::invalid_argument("Deque vazio");
+    if (!tail) throw std::invalid_argument("Deque vazio");
     return toString(tail);
   }
   void insertRear(T item) override {
-    Node *node = new Node{item, nullptr, tail};
+    Node* node = new Node{item, nullptr, tail};
     if (tail)
       tail->next = node;
     else
@@ -92,9 +90,8 @@ public:
     length++;
   }
   void deleteRear() override {
-    if (!tail)
-      return;
-    Node *node = tail;
+    if (!tail) return;
+    Node* node = tail;
     tail = tail->prev;
     if (tail)
       tail->next = nullptr;
@@ -108,7 +105,7 @@ public:
   [[nodiscard]] int size() const override { return length; }
   void clear() override {
     while (head) {
-      Node *node = head;
+      Node* node = head;
       head = head->next;
       delete node;
     }
@@ -118,9 +115,9 @@ public:
 
   [[nodiscard]] std::string toString() const override {
     std::ostringstream buffer;
-    const char *endlNotIfEmpty = head ? "\n" : "";
+    const char* endlNotIfEmpty = head ? "\n" : "";
     buffer << "[" << this << "]" << "[" << length << "] {" << endlNotIfEmpty;
-    for (Node *node = head; node; node = node->next)
+    for (Node* node = head; node; node = node->next)
       buffer << "    " << toString(node);
     buffer << "}" << std::endl;
     return buffer.str();
