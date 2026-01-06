@@ -6,8 +6,7 @@ using namespace std;
 [] = referência de memória;
 [204, 217, 232, 252];
 {6, 217} -> {5, 232} -> {2, 252} -> {3, nullptr}; */
-template <typename T>
-struct BynaryNode {
+template <typename T> struct BynaryNode {
   T data;
   BynaryNode *next = nullptr;
 };
@@ -16,8 +15,7 @@ struct BynaryNode {
 BynaryNode<int> *head = nullptr;
 
 /* Iteration: time complexity: O(n), space: O(1) */
-template <typename T>
-void coutAll() {
+template <typename T> void coutAll() {
   for (BynaryNode<T> *node = head; node != nullptr; node = node->next)
     cout << "Node[" << node << "] = {data: " << node->data
          << ", next: " << node->next << "}" << endl;
@@ -36,8 +34,7 @@ void insertAfter(BynaryNode<T> *afterNode, BynaryNode<T> *newNode) {
 /*
 [1: **278**, 2: 204, 3: 217, 4: 264, 5: 232, 6: 252];
 **{10, 204}** -> {6, 217} -> {5, 264} -> {8, 232} -> {2, 252} -> {3, nullptr};*/
-template <typename T>
-void insertFirst(BynaryNode<T> *newNode) {
+template <typename T> void insertFirst(BynaryNode<T> *newNode) {
   newNode->next = head;
   head = newNode;
 }
@@ -45,8 +42,7 @@ void insertFirst(BynaryNode<T> *newNode) {
 /*
 exclusion: time complexity: entre O(1) primeiro node, até O(n) ultimo node;
 por que temos que atravessar a estrutura até achar o elemento; */
-template <typename T>
-void remove(BynaryNode<T> *node) {
+template <typename T> void remove(BynaryNode<T> *node) {
   if (head == node) {
     head = node->next;
     return delete node;
@@ -60,18 +56,18 @@ void remove(BynaryNode<T> *node) {
 }
 
 /* searching: O(n) */
-template <typename T>
-BynaryNode<T> *findByIndex(int index) {
+template <typename T> BynaryNode<T> *findByIndex(int index) {
   short i = 0;
   for (BynaryNode<T> *node = head; node != nullptr; node = node->next, i++)
-    if (i == index) return node;
+    if (i == index)
+      return node;
   return nullptr;
 }
 
-template <typename T>
-BynaryNode<T> *findByValue(T value) {
+template <typename T> BynaryNode<T> *findByValue(T value) {
   for (BynaryNode<T> *node = head; node != nullptr; node = node->next)
-    if (node->data == value) return node;
+    if (node->data == value)
+      return node;
   return nullptr;
 }
 
@@ -81,7 +77,7 @@ int main() {
   BynaryNode<int> *third = new BynaryNode{2};
   BynaryNode<int> *forth = new BynaryNode<int>{3, nullptr};
 
-  first->next = second;  // first->next é um atalho para (*first).next
+  first->next = second; // first->next é um atalho para (*first).next
   second->next = third;
   third->next = forth;
 

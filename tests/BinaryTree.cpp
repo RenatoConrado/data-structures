@@ -1,5 +1,4 @@
 #include "BinaryTree.hpp"
-
 #include <gtest/gtest.h>
 
 TEST(BinaryTreeTest, RootCreation) {
@@ -15,8 +14,8 @@ TEST(BinaryTreeTest, InsertLeftAndRight) {
   tree.setRoot(1);
 
   const auto root = tree.getRoot();
-  const auto left = tree.insertLeft(root, 2);
-  const auto right = tree.insertRight(root, 3);
+  const auto left = BinaryTree<int>::insertLeft(root, 2);
+  const auto right = BinaryTree<int>::insertRight(root, 3);
 
   ASSERT_NE(left, nullptr);
   ASSERT_NE(right, nullptr);
