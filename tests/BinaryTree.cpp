@@ -29,11 +29,11 @@ TEST(BinaryTreeTest, MultipleLevels) {
   tree.setRoot(1);
 
   const auto root = tree.getRoot();
-  const auto left = tree.insertLeft(root, 2);
-  tree.insertRight(root, 3);
+  const auto left = BinaryTree<int>::insertLeft(root, 2);
+  BinaryTree<int>::insertRight(root, 3);
 
-  tree.insertLeft(left, 4);
-  tree.insertRight(left, 5);
+  BinaryTree<int>::insertLeft(left, 4);
+  BinaryTree<int>::insertRight(left, 5);
 
   EXPECT_EQ(root->left->left->data, 4);
   EXPECT_EQ(root->left->right->data, 5);

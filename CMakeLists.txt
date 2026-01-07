@@ -8,6 +8,7 @@ include_directories(include)
 add_executable(funcLinkedList src/linked-list/function.cpp)
 add_executable(classLinkedList src/linked-list/class.cpp)
 add_executable(deque src/deque.cpp)
+add_executable(graph src/Graph.cpp)
 
 # --- Google Test ---
 include(FetchContent)
