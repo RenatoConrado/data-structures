@@ -1,11 +1,34 @@
 [invert-linkedList]: diagrams/linkedList-invert.excalidraw.png "invert() function singly linked list"
+
 [remove-linkedList]: diagrams/DoubleLinkedList-remove.excalidraw.png "remove() function double linked list"
+
 [example-avlTree]: diagrams/AVLTree-example.excalidraw.png "example of avl tree"
+
 [rotate-AvlTree]: diagrams/AVLTree-RotateRight.excalidraw.png "rotate() function avl tree"
+
 [graphs]: diagrams/graphs.excalidraw.png "graphs"
 
 # Study of Data Structures and Algorithms in C++23
-An Educational study of implementations of fundamental data structures and algorithms in C++, featuring linked lists, trees, graphs, and some test coverage using GoogleTest.
+
+An Educational study of implementations of fundamental data structures and algorithms in C++, featuring linked lists,
+trees, graphs, and some test coverage using GoogleTest.
+
+## Build and Execute
+
+```shell
+cmake -S ./ -B ./build # Build env
+cmake --build ./build --config Release # Build releases
+# Copy and paste files (optional)
+mkdir -Force releases
+cp -Force ./build/Release/* ./releases/ 
+# Executables
+./releases/all_tests.exe
+./releases/classLinkedList.exe
+./releases/deque.exe
+./releases/funcLinkedList.exe
+./releases/graph.exe
+# Finished
+```
 
 ## Data Structures Implemented
 
@@ -94,6 +117,7 @@ Dependencies:
 - GoogleTest for unit testing
 
 ### Build
+
 cmake --build .
 
 ## Usage Examples
@@ -221,6 +245,7 @@ int main() {
 The project includes test suites using GoogleTest
 
 ### Test Coverage
+
 - **Factorial**: Edge cases (negative, zero, positive)
 - **Deque**: All operations, error handling, empty states
 - **Binary Tree**: Creation, insertion, traversals, clearing
@@ -230,48 +255,48 @@ The project includes test suites using GoogleTest
 
 ```yml
 data-structures:
-    - include:
-        - AVLTree.hpp              # Self-balancing BST
-        - BinaryTree.hpp           # Basic binary tree
-        - DequeLinkedList.hpp      # Second implementation
-        - DoubleLinkedList.hpp     # First implementation
-        - Factorial.hpp            # First class to use GoogleTest
-    - src:
-        - linked-list:
-            - function.cpp         # Singly linked list demo
-            - class.cpp            # Doubly linked list demo
-        - deque.cpp                # Deque demo
-        - Graph.cpp                # Basic graph demo
-    - tests:
-        - Factorial.cpp
-        - DequeLinkedList.cpp
-        - BinaryTree.cpp
-        - AVLTree.cpp
-    - CMakeLists.txt
-    - README.md
+  - include:
+      - AVLTree.hpp              # Self-balancing BST
+      - BinaryTree.hpp           # Basic binary tree
+      - DequeLinkedList.hpp      # Second implementation
+      - DoubleLinkedList.hpp     # First implementation
+      - Factorial.hpp            # First class to use GoogleTest
+  - src:
+      - linked-list:
+          - function.cpp         # Singly linked list demo
+          - class.cpp            # Doubly linked list demo
+      - deque.cpp                # Deque demo
+      - Graph.cpp                # Basic graph demo
+  - tests:
+      - Factorial.cpp
+      - DequeLinkedList.cpp
+      - BinaryTree.cpp
+      - AVLTree.cpp
+  - CMakeLists.txt
+  - README.md
 ```
 
 ## Time Complexity Reference
 
-Data Structure | Insert | Delete | Search | Space
-:---|:---:|:---:|:---:|:---:
-LinkedList | O(1)/O(n) |O(1)/O(n) | O(n) |O(n)
-DLinkedList | O(1) | O(1) | O(n) | O(n)
-Deque | O(1) | O(1) | - | O(n)
-Binary Tree | O(n) | O(n) | O(n) | O(n)
-AVL Tree | O(log n) | O(log n) | O(log n) | O(n)
-Graph (Adj List)[^1] | O(1) | O(V+E) | O(V) | O(V+E)
+| Data Structure       |  Insert   |  Delete   |  Search  | Space  |
+|:---------------------|:---------:|:---------:|:--------:|:------:|
+| LinkedList           | O(1)/O(n) | O(1)/O(n) |   O(n)   |  O(n)  |
+| DLinkedList          |   O(1)    |   O(1)    |   O(n)   |  O(n)  |
+| Deque                |   O(1)    |   O(1)    |    -     |  O(n)  |
+| Binary Tree          |   O(n)    |   O(n)    |   O(n)   |  O(n)  |
+| AVL Tree             | O(log n)  | O(log n)  | O(log n) |  O(n)  |
+| Graph (Adj List)[^1] |   O(1)    |  O(V+E)   |   O(V)   | O(V+E) |
 
 ## Learning Path
 
 1. linked-list/function.cpp - Understand basic linked lists using global variables and functions
-1. linked-list/class.cpp 
-1. DoubleLinkedList.hpp - Learn bidirectional traversal
-1. BinaryTree.hpp - Understand tree concepts
-1. Explore AVLTree.hpp - Learn self-balancing trees
-1. Study DequeLinkedList.hpp - Understand queue variations
-1. Practice with test files to see usage patterns
-1. Implement Graph.hpp - Master graph algorithms
+2. linked-list/class.cpp
+3. DoubleLinkedList.hpp - Learn bidirectional traversal
+4. BinaryTree.hpp - Understand tree concepts
+5. Explore AVLTree.hpp - Learn self-balancing trees
+6. Study DequeLinkedList.hpp - Understand queue variations
+7. Practice with test files to see usage patterns
+8. Implement Graph.hpp - Master graph algorithms
 
 Optimize and extend existing implementations and create your own data structures
 

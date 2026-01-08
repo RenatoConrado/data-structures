@@ -29,7 +29,7 @@ int main() {
     cout << "Acessando os elementos" << endl
          << "Frente: " << list.getFrontString()
          << "Atras : " << list.getRearString();
-  } catch (runtime_error &error) {
+  } catch (invalid_argument &error) {
     cerr << error.what() << endl;
   }
 
